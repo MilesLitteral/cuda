@@ -511,7 +511,7 @@ getEdges !g =
       { useGraph     `Graph'
       , castPtr      `Ptr Node'
       , castPtr      `Ptr Node'
-      , id           `Ptr CULong'
+      , id           `Ptr CULLong'
       }
       -> `()' checkStatus*- #}
 #endif
@@ -541,7 +541,7 @@ getNodes !g =
     {# fun unsafe cuGraphGetNodes
       { useGraph `Graph'
       , castPtr  `Ptr Node'
-      , id       `Ptr CULong'
+      , id       `Ptr CULLong'
       }
       -> `()' checkStatus*- #}
 #endif
@@ -571,7 +571,7 @@ getRootNodes g =
     {# fun unsafe cuGraphGetRootNodes
       { useGraph `Graph'
       , castPtr  `Ptr Node'
-      , id       `Ptr CULong'
+      , id       `Ptr CULLong'
       }
       -> `()' checkStatus*- #}
 #endif
@@ -601,7 +601,7 @@ getDependencies !n =
     {# fun unsafe cuGraphNodeGetDependencies
       { useNode `Node'
       , castPtr `Ptr Node'
-      , id      `Ptr CULong'
+      , id      `Ptr CULLong'
       }
       -> `()' checkStatus*- #}
 #endif
@@ -631,7 +631,7 @@ getDependents n =
     {# fun unsafe cuGraphNodeGetDependentNodes
       { useNode `Node'
       , castPtr `Ptr Node'
-      , id      `Ptr CULong'
+      , id      `Ptr CULLong'
       }
       -> `()' checkStatus*- #}
 #endif
@@ -677,7 +677,7 @@ withNodeArray :: [Node] -> (Ptr {# type CUgraphNode #} -> IO a) -> IO a
 withNodeArray ns f = withArray ns (f . castPtr)
 
 {-# INLINE withNodeArrayLen #-}
-withNodeArrayLen :: [Node] -> ((Ptr {# type CUgraphNode #}, CULong) -> IO a) -> IO a
+withNodeArrayLen :: [Node] -> ((Ptr {# type CUgraphNode #}, CULLong) -> IO a) -> IO a
 withNodeArrayLen ns f = withArrayLen ns $ \i p -> f (castPtr p, cIntConv i)
 #endif
 

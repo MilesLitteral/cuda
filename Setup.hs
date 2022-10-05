@@ -54,8 +54,10 @@ generatedBuildInfoFilePath :: FilePath
 generatedBuildInfoFilePath = customBuildInfoFilePath <.> "generated"
 
 defaultCUDAInstallPath :: Platform -> FilePath
-defaultCUDAInstallPath _ = "/usr/local/cuda"  -- windows?
-
+defaultCUDAInstallPath (Platform a b) = do
+  case b of
+     Linux   -> "/usr/local/cuda"  -- windows?
+     Windows -> "C:/NVIDIA/Toolkit/CUDA/v9.0/" --ASSUME THIS EXISTS FOR NOW
 
 -- Build setup
 -- -----------
@@ -109,7 +111,7 @@ main = defaultMainWithHooks customHooks
           profile
           currentPlatform
           compilerId_
-          (configExtraLibDirs flags)
+          (configExtraLibDirs     flags)
           (configExtraIncludeDirs flags)
           generatedBuildInfoFilePath
       validateLinker verbosity currentPlatform $ withPrograms lbi
