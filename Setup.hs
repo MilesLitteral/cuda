@@ -54,8 +54,8 @@ generatedBuildInfoFilePath :: FilePath
 generatedBuildInfoFilePath = customBuildInfoFilePath <.> "generated"
 
 defaultCUDAInstallPath :: Platform -> FilePath
-defaultCUDAInstallPath (Platform a b) = do
-  case b of
+defaultCUDAInstallPath (Platform _ os) = do
+  case os of
      Linux   -> "/usr/local/cuda"  -- windows?
      Windows -> "C:/NVIDIA/Toolkit/CUDA/v9.0/" --ASSUME THIS EXISTS FOR NOW
 
